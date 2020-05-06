@@ -1,0 +1,14 @@
+{
+  "name": "hello",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./lib/index",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Jeff YU",
+  "dependencies": {},
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

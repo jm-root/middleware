@@ -1,0 +1,13 @@
+*.md
+.git
+.gitignore
+.vscode
+LICENSE
+VERSION
+spec
+coverage
+tests
+Dockerfile
+jest.config.js
+spec
+doc
