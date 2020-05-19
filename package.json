@@ -1,5 +1,5 @@
 {
-  "name": "server-template",
+  "name": "middleware",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
