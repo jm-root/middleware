@@ -1,5 +1,3 @@
 module.exports = {
-  modules: {
-    hello: {}
-  }
+  modules: {}
 }

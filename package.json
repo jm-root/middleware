@@ -6,8 +6,6 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "npx jm-server",
-    "cluster": "npx jm-server --cluster",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
