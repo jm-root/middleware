@@ -1,0 +1,34 @@
+{
+  "name": "jm-ms-mongoose",
+  "version": "2.0.2",
+  "description": "mongoose router plugin for jm-ms",
+  "main": "./lib/index",
+  "files": [ "/lib" ],
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/db.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-ms-mongoose"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/db/issues"
+  },
+  "homepage": "https://github.com/jm-root/db",
+  "dependencies": {  },
+  "devDependencies": {
+    "jm-ms-core": "^2.2.0",
+    "mongoose": "^5.3.11"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

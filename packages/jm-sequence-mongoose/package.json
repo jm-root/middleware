@@ -1,0 +1,33 @@
+{
+  "name": "jm-sequence-mongoose",
+  "version": "0.0.2",
+  "description": "sequence using mongoose",
+  "main": "./lib/index",
+  "files": [ "/lib" ],
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/db.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-sequence-mongoose"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/db/issues"
+  },
+  "homepage": "https://github.com/jm-root/db",
+  "dependencies": {},
+  "devDependencies": {
+    "mongoose": "^5.8.11"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
