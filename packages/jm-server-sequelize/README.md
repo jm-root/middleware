@@ -20,7 +20,6 @@ module.exports = {
 
 | 配置项 | 默认值 | 描述 |
 | :---: | :---: | :---: |
-| delegate | 'model' | load all models to 'app[delegate]' |
 | dir | 'model' | load all files in dir as models |
 | uri | | connection URI |
 | options | | [connection options](https://sequelize.org/v5/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor) |
@@ -28,14 +27,6 @@ module.exports = {
 ## Model files
 
 Please put models under `model` dir by default.
-
-## Conventions
-
-| model file       | class name              |
-| ---------------- | ----------------------- |
-| `user.js`        | `app.model.user`        |
-| `danwei.js`      | `app.model.danwei`      |
-| `renyuan.js`  | `app.model.renyuan` |
 
 ## Associate
 
@@ -98,8 +89,8 @@ module.exports = function (sequelize, DataTypes) {
       deletedAt: 'deltime'
     })
 
-  model.associate = model=>{
-    const {  danwei, region } = model
+  model.associate = models=>{
+    const {  danwei, region } = models
     danwei.belongsTo(region, { constraints: false })
     danwei.belongsTo(danwei, { as: 'govern', constraints: false })
   }
@@ -112,8 +103,10 @@ module.exports = function (sequelize, DataTypes) {
 Define all your associations in file `associations.js` and will be executed after all models loaded.
 
 ```javascript
-module.exports = function (model) {
-  const { region, danwei } = model
+module.exports = function (models) {
+  const { region, danwei } = models
+  
+  // 需要时，可以通过 danwei.sequelize.app 引用到 app
 
   danwei.belongsTo(region, { constraints: false })
   danwei.belongsTo(danwei, { as: 'govern', constraints: false })

@@ -1,6 +1,5 @@
-module.exports = function (model) {
-  const { spu, region, danwei, renyuan, storehouse, storehouseSpu, alarm, flow, flowSpu, audit, companyBeian, renyuanBeian, storehouseBeian, checklist, checkrecord, abnomalBeian, tableLog, flowSpuCode, storehouseSpuCode } = model
-
+module.exports = function (models) {
+  const { spu, region, danwei, renyuan, storehouse, storehouseSpu, alarm, flow, flowSpu, audit, companyBeian, renyuanBeian, storehouseBeian, checklist, checkrecord, abnomalBeian, tableLog, flowSpuCode, storehouseSpuCode } = models
   danwei.belongsTo(region, { constraints: false })
   danwei.belongsTo(danwei, { as: 'govern', constraints: false })
   danwei.hasMany(checkrecord, { constraints: false })

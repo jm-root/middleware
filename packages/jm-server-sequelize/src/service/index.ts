@@ -1,20 +1,14 @@
-import { Sequelize } from 'sequelize/types'
 import fs = require('fs');
 import sequelize = require('./sequelize');
 const { readdirSync } = fs
 const { Service } = require('jm-server')
 export = class extends Service {
-  private sequelize: Sequelize;
-  constructor (opts: { dir?: string, delegate?:string, app?:any } = {}) {
+  constructor (opts: { dir?: string, app?:any } = {}) {
     super(opts)
     const db = sequelize(opts)
     this.sequelize = db
-    const { dir = `${process.cwd()}/model`, delegate = 'model', app = {} } = opts
-    app[delegate] || (app[delegate] = {})
-    const model:any = {}
-    this.model = model
+    const { dir = `${process.cwd()}/model`, app = {} } = opts
     let Associations: Function = () => {}
-
     Object.assign(db, { app })
 
     readdirSync(dir).forEach((file) => {
@@ -23,17 +17,16 @@ export = class extends Service {
         Associations = require(`${dir}/associations`)
         return
       }
-      const mdl = db.import(`${dir}/${file}`)
-      Object.assign(model, { [mdl.name]: mdl })
+      db.import(`${dir}/${file}`)
     })
 
-    for (const idx in model) {
-      const obj = model[idx]
-      if (obj.associate) obj.associate(model)
+    const { models } = db
+    for (const idx in models) {
+      const obj = models[idx]
+      if (obj.associate) obj.associate(models)
     }
 
-    Associations(model)
-    Object.assign(app[delegate], model)
+    Associations(models)
 
     db.sync().then(() => this.emit('ready'))
   }

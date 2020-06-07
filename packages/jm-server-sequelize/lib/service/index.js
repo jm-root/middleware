@@ -8,10 +8,7 @@ module.exports = class extends Service {
     super(opts)
     const db = sequelize(opts)
     this.sequelize = db
-    const { dir = `${process.cwd()}/model`, delegate = 'model', app = {} } = opts
-    app[delegate] || (app[delegate] = {})
-    const model = {}
-    this.model = model
+    const { dir = `${process.cwd()}/model`, app = {} } = opts
     let Associations = () => { }
     Object.assign(db, { app })
     readdirSync(dir).forEach((file) => {
@@ -20,15 +17,14 @@ module.exports = class extends Service {
         Associations = require(`${dir}/associations`)
         return
       }
-      const mdl = db.import(`${dir}/${file}`)
-      Object.assign(model, { [mdl.name]: mdl })
+      db.import(`${dir}/${file}`)
     })
-    for (const idx in model) {
-      const obj = model[idx]
-      if (obj.associate) { obj.associate(model) }
+    const { models } = db
+    for (const idx in models) {
+      const obj = models[idx]
+      if (obj.associate) { obj.associate(models) }
     }
-    Associations(model)
-    Object.assign(app[delegate], model)
+    Associations(models)
     db.sync().then(() => this.emit('ready'))
   }
 
