@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jm-root/db.git"
+    "url": "https://github.com/jm-root/middleware.git"
   },
   "keywords": [
     "javascript",
@@ -20,9 +20,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jm-root/db/issues"
+    "url": "https://github.com/jm-root/middleware/issues"
   },
-  "homepage": "https://github.com/jm-root/db",
+  "homepage": "https://github.com/jm-root/middleware",
   "dependencies": {},
   "devDependencies": {
     "mongoose": "^5.8.11"
