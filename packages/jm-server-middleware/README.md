@@ -32,12 +32,11 @@ create restful mapper for sequelize schemas defined.
 ```javascript
 module.exports = {
   modules: {
-    user: {
+    orm: {
       module: 'jm-server-middleware',
       jsonpath: '$.sequelize',
       config: {
-        uri: 'mysql://root:123@mysql.l.jamma.cn/main',//A full database URI;
-        path: `${__dirname}/schema` //The path to the file that holds the model you want to import.
+        uri: 'mysql://root:123@mysql.l.jamma.cn/main'
       }
     }
   }

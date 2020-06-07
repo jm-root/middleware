@@ -35,7 +35,7 @@ create restful mapper for a sequelize model.
 router
   .use(sequelize.order())
   .use(sequelize.fields())
-  .use(sequelize.range('conditions','crtime','startCrtime','endCrtime'))
+  .use(sequelize.filter('conditions','crtime','code'))
   .use(sequelize.resful(model))
 
 ```
