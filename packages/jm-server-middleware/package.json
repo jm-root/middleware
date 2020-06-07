@@ -1,0 +1,29 @@
+{
+  "name": "jm-server-middleware",
+  "version": "1.0.0",
+  "description": "middlewares for jm-server",
+  "main": "./lib/index.js",
+  "files": [ "/lib" ],
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/middleware.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-server-middleware"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/middleware/issues"
+  },
+  "homepage": "https://github.com/jm-root/middleware",
+  "dependencies": {
+    "jm-server-sequelize": "^1.0.0"
+  }
+}

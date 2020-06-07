@@ -9,7 +9,7 @@ module.exports = {
     }
   },
   categories: {
-    default: { appenders: [ 'console' ], level: 'info' },
-    main: { appenders: [ 'console', 'main' ], level: 'info' }
+    default: { appenders: ['console'], level: 'info' },
+    main: { appenders: ['console', 'main'], level: 'info' }
   }
 }

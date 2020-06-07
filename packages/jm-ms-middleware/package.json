@@ -1,0 +1,30 @@
+{
+  "name": "jm-ms-middleware",
+  "version": "1.0.0",
+  "description": "middlewares for jm-ms",
+  "main": "./lib/index.js",
+  "files": [ "/lib" ],
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/middleware.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-ms-middleware"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/middleware/issues"
+  },
+  "homepage": "https://github.com/jm-root/middleware",
+  "dependencies": {
+    "jm-ms-sequelize": "^1.0.10",
+    "jm-utils": "^1.0.6"
+  }
+}

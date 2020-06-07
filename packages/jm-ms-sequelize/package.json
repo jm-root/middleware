@@ -1,0 +1,37 @@
+{
+  "name": "jm-ms-sequelize",
+  "version": "1.1.0",
+  "description": "sequelize router plugin for jm-ms",
+  "main": "./lib/index",
+  "files": [ "/lib" ],
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jm-root/middleware.git"
+  },
+  "keywords": [
+    "javascript",
+    "jm-ms-sequelize"
+  ],
+  "author": {
+    "name": "Jeff YU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jm-root/middleware/issues"
+  },
+  "homepage": "https://github.com/jm-root/middleware",
+  "dependencies": {
+    "jm-utils": "^1.0.6"
+  },
+  "devDependencies": {
+    "jm-ms-core": "^2.2.0",
+    "sequelize": "^5.8.7",
+    "mysql2": "^1.6.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
