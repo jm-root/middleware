@@ -1,6 +1,6 @@
 {
   "name": "jm-server-sequelize",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sequelize restful mapper for jm-server",
   "main": "./lib/index",
   "files": [ "/lib" ],
@@ -20,7 +20,7 @@
   "dependencies": {
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.8",
-    "jm-ms-middleware": "^1.0.0"
+    "jm-ms-middleware": "^1.0.1"
   },
   "jest": {
     "testEnvironment": "node"
