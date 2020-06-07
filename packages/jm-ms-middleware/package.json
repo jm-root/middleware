@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jm-root/middleware",
   "dependencies": {
-    "jm-ms-sequelize": "^1.0.10",
+    "jm-ms-sequelize": "^1.1.0",
     "jm-utils": "^1.0.6"
   }
 }
