@@ -4,7 +4,7 @@ const { sequelize: { filter } } = require('jm-ms-middleware')
 module.exports = function (service) {
   const router = ms.router()
   router
-    .use(filter('conditions', 'crtime', 'nid'))
+    .use(filter('where', 'crtime', 'nId'))
     .add('/danweis', 'get', opts => {
       const { models } = service.app.modules.orm.sequelize
       opts.include || (opts.include = [

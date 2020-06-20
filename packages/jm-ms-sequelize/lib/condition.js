@@ -55,7 +55,7 @@ function filterValue (value) {
 }
 
 /**
- * 过滤 filter('conditions', 'price')
+ * 过滤 filter('where', 'price')
  * get /items?price[gte]=1&price[lt]=100
  * {
  * price; {
@@ -63,20 +63,43 @@ function filterValue (value) {
  *    lt: 100
  *  }
  * }
- * @param delegate
- * @param keys
+ * @param {string} [delegate='where'] 查询字段定义
+ * @param {string} fields 定义可供条件查询字段
  * @returns {Function}
  */
-function filter (delegate = 'conditions', ...keys) {
+function filter (delegate = 'where', ...fields) {
   return function (opts = {}) {
     const { data = {}, type } = opts
     if (type !== 'get') return
     opts[delegate] || (opts[delegate] = {})
     const conditions = opts[delegate]
-    for (const key of keys) {
-      const value = data[key]
+    for (const field of fields) {
+      const value = data[field]
       if (!value) continue
-      conditions[key] = filterValue(value)
+      conditions[field] = filterValue(value)
+    }
+  }
+}
+
+/**
+ * 模糊搜索
+ * 如: get /items?s=abc
+ * @param {string} [delegate='where'] 查询字段定义
+ * @param {string} [key='s'] 查询参数名称定义
+ * @param {string} fields 定义可供条件查询字段
+ * @returns {function(...[*]=)}
+ */
+function search (delegate = 'where', key = 's', ...fields) {
+  fields.length || (fields = [])
+  return function (opts = {}) {
+    const { data = {}, headers = {}, type } = opts
+    const keyword = headers[key] || data[key]
+    if (type !== 'get' || !keyword) return
+    opts[delegate] || (opts[delegate] = {})
+    const conditions = opts[delegate]
+    conditions[Op.or] || (conditions[Op.or] = [])
+    for (const field of fields) {
+      conditions[Op.or].push({ [field]: { [Op.like]: `%${keyword}%` } })
     }
   }
 }
@@ -84,5 +107,6 @@ function filter (delegate = 'conditions', ...keys) {
 module.exports = {
   order,
   fields,
-  filter
+  filter,
+  search
 }

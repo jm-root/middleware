@@ -1,6 +1,6 @@
 {
   "name": "jm-ms-middleware",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "middlewares for jm-ms",
   "main": "./lib/index.js",
   "files": [ "/lib" ],
@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/jm-root/middleware",
   "dependencies": {
-    "jm-ms-sequelize": "^1.1.0",
-    "jm-utils": "^1.0.6"
+    "jm-ms-sequelize": "^1.1.1",
+    "jm-utils": "^1.0.6",
+    "jm-err": "^1.0.8",
+    "fastest-validator": "^1.4.2"
   }
 }
