@@ -71,11 +71,11 @@ function filter (delegate = 'where', ...fields) {
   return function (opts = {}) {
     const { data = {}, type } = opts
     if (type !== 'get') return
-    opts[delegate] || (opts[delegate] = {})
-    const conditions = opts[delegate]
     for (const field of fields) {
       const value = data[field]
       if (!value) continue
+      opts[delegate] || (opts[delegate] = {})
+      const conditions = opts[delegate]
       conditions[field] = filterValue(value)
     }
   }

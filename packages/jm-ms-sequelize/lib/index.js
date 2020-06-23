@@ -132,16 +132,18 @@ function fn (model, opts = {}) {
 
     const { id } = opts.params
 
-    const { conditions, where, attributes, include, order, paranoid, raw, plain = true } = opts
+    const { conditions, where = {}, attributes, include, order, paranoid, raw, plain = true } = opts
     const custom = { where, attributes, include, order, paranoid, raw }
     opts.ext || (opts.ext = {})
-    const options = { where: { id } }
+    const options = {}
     Object.assign(options, { ...defCommon, ...defGet }, custom, opts.ext)
 
     // 兼容旧定义
     conditions && (options.where = { ...where, ...conditions })
     opts.fields && (options.attributes = opts.fields)
     opts.lean && (options.raw = true)
+
+    Object.assign(options.where, { id })
 
     let error
     try {
@@ -219,8 +221,8 @@ function fn (model, opts = {}) {
     const { id } = opts.params
 
     const { where, paranoid, validate, fields, hooks, individualHooks } = opts
-    const custom = { where, paranoid, validate, fields, hooks, individualHooks }
-    const options = { where: { id } }
+    const custom = { paranoid, validate, fields, hooks, individualHooks }
+    const options = { where: { ...where, id } }
     Object.assign(options, { ...defCommon, ...defUpdate }, custom, opts.ext)
 
     let error
@@ -261,8 +263,8 @@ function fn (model, opts = {}) {
     const ids = Array.isArray(id) ? id : splitAndTrim(id)
 
     const { where, limit, force, hooks, individualHooks } = opts
-    const custom = { where, limit, force, hooks, individualHooks }
-    const options = { where: { id: { [Op.in]: ids } } }
+    const custom = { limit, force, hooks, individualHooks }
+    const options = { where: { ...where, id: { [Op.in]: ids } } }
     Object.assign(options, { ...defCommon, ...defRemove }, custom, opts.ext)
 
     let error
