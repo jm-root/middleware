@@ -8,8 +8,8 @@
   "scripts": {
     "start": "npx jm-server",
     "cluster": "npx jm-server --cluster",
-    "lint": "standardx && standardx **/*.ts",
-    "lint:fix": "standardx --fix && standardx --fix **/*.ts"
+    "lint": "standardx",
+    "lint:fix": "standardx --fix"
   },
   "lint-staged": {
     "**/*.js": [
@@ -30,6 +30,9 @@
   "standardx": {
     "env": [
       "jest"
+    ],
+    "ignore": [
+      "**/dist/"
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": [
