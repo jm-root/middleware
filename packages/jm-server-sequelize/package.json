@@ -1,6 +1,6 @@
 {
   "name": "jm-server-sequelize",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "sequelize restful mapper for jm-server",
   "main": "./lib/index",
   "files": [ "/lib" ],
