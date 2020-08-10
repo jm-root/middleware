@@ -37,6 +37,16 @@ function fn (model, opts = {}) {
     // keywords = []
   } = model.routes.opts
 
+  function pick (obj, keys = []) {
+    const result = {}
+    Object.keys(obj).filter((key) => {
+      const has = keys.includes(key)
+      has && (result[key] = obj[key])
+      return has
+    })
+    return result
+  }
+
   /**
    * 查询列表
    * @param {object} opts 请求选项
@@ -62,11 +72,10 @@ function fn (model, opts = {}) {
 
     let { page, rows, offset, limit } = opts.data
 
-    const { conditions, where, attributes, include, order, paranoid, raw, distinct, plain = true } = opts
-    const custom = { where, attributes, include, order, paranoid, raw, distinct }
-    opts.ext || (opts.ext = {})
+    const { conditions, where, plain = true, ext = {} } = opts
+    const custom = pick(opts, ['where', 'attributes', 'include', 'order', 'group', 'paranoid', 'raw', 'distinct'])
     const options = { where: {} }
-    Object.assign(options, { ...defCommon, ...defList }, custom, opts.ext)
+    Object.assign(options, { ...defCommon, ...defList }, custom, ext)
 
     offset && (options.offset = Number(offset))
     limit && (options.limit = Number(limit))
@@ -83,7 +92,8 @@ function fn (model, opts = {}) {
         rows = Number(rows) || 10
         options.offset = (page - 1) * rows
         options.limit = rows
-        const { count: total, rows: data } = await model.findAndCountAll(options)
+        const { count, rows: data } = await model.findAndCountAll(options)
+        const total = Array.isArray(count) ? count.length : count
         doc = { page, pages: Math.ceil(total / rows), total, rows: data }
       } else {
         doc = await model.findAll(options)
@@ -132,11 +142,10 @@ function fn (model, opts = {}) {
 
     const { id } = opts.params
 
-    const { conditions, where = {}, attributes, include, order, paranoid, raw, plain = true } = opts
-    const custom = { where, attributes, include, order, paranoid, raw }
-    opts.ext || (opts.ext = {})
+    const { conditions, where = {}, plain = true, ext = {} } = opts
+    const custom = pick(opts, ['where', 'attributes', 'include', 'order', 'paranoid', 'raw'])
     const options = {}
-    Object.assign(options, { ...defCommon, ...defGet }, custom, opts.ext)
+    Object.assign(options, { ...defCommon, ...defGet }, custom, ext)
 
     // 兼容旧定义
     conditions && (options.where = { ...where, ...conditions })
@@ -176,8 +185,8 @@ function fn (model, opts = {}) {
     let doc = await model.emit('before_create', opts)
     if (doc !== undefined) return doc
 
-    const { include, raw, isNewRecord, fields, validate, hooks, plain = true } = opts
-    const custom = { include, raw, isNewRecord, fields, validate, hooks, plain }
+    const { plain = true } = opts
+    const custom = pick(opts, ['include', 'raw', 'isNewRecord', 'fields', 'validate', 'hooks', 'plain'])
     const options = {}
     Object.assign(options, { ...defCommon, ...defCreate }, custom, opts.ext)
 
@@ -220,10 +229,10 @@ function fn (model, opts = {}) {
 
     const { id } = opts.params
 
-    const { where, paranoid, validate, fields, hooks, individualHooks } = opts
-    const custom = { paranoid, validate, fields, hooks, individualHooks }
+    const { where, ext = {} } = opts
+    const custom = pick(opts, ['paranoid', 'validate', 'fields', 'hooks', 'individualHooks'])
     const options = { where: { ...where, id } }
-    Object.assign(options, { ...defCommon, ...defUpdate }, custom, opts.ext)
+    Object.assign(options, { ...defCommon, ...defUpdate }, custom, ext)
 
     let error
     try {
@@ -262,10 +271,10 @@ function fn (model, opts = {}) {
     const id = opts.params.id || opts.data.id
     const ids = Array.isArray(id) ? id : splitAndTrim(id)
 
-    const { where, limit, force, hooks, individualHooks } = opts
-    const custom = { limit, force, hooks, individualHooks }
+    const { where, ext = {} } = opts
+    const custom = pick(opts, ['limit', 'force', 'hooks', 'individualHooks'])
     const options = { where: { ...where, id: { [Op.in]: ids } } }
-    Object.assign(options, { ...defCommon, ...defRemove }, custom, opts.ext)
+    Object.assign(options, { ...defCommon, ...defRemove }, custom, ext)
 
     let error
     try {

@@ -17,7 +17,7 @@ module.exports = class extends Service {
         Associations = require(`${dir}/associations`)
         return
       }
-      db.import(`${dir}/${file}`)
+      require(`${dir}/${file}`)(db, db.Sequelize.DataTypes)
     })
     const { models } = db
     for (const idx in models) {
