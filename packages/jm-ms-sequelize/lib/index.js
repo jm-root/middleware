@@ -144,7 +144,7 @@ function fn (model, opts = {}) {
 
     const { conditions, where = {}, plain = true, ext = {} } = opts
     const custom = pick(opts, ['where', 'attributes', 'include', 'order', 'paranoid', 'raw'])
-    const options = {}
+    const options = { where: {} }
     Object.assign(options, { ...defCommon, ...defGet }, custom, ext)
 
     // 兼容旧定义
