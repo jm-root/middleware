@@ -7,26 +7,42 @@ export = class extends Service {
     super(opts)
     const db = sequelize(opts)
     this.sequelize = db
+    const {DataTypes} = db.Sequelize
     const { dir = `${process.cwd()}/model`, app = {} } = opts
-    let Associations: Function = () => {}
     Object.assign(db, { app })
 
-    readdirSync(dir).forEach((file) => {
-      if (file === 'index.js') return
-      if (file === 'associations.js') {
-        Associations = require(`${dir}/associations`)
-        return
-      }
-      require(`${dir}/${file}`)(db, db.Sequelize.DataTypes)
-    })
-
-    const { models } = db
-    for (const idx in models) {
-      const obj = models[idx]
-      if (obj.associate) obj.associate(models)
+    // 如果存在 index.js 或者 index/index.js 所有工作由 require('/index') 完成
+    let hasIndex = false
+    try{
+      const fn = require(`${dir}`)
+      fn(db, DataTypes)
+      hasIndex = true
+    }catch(e){
     }
 
-    Associations(models)
+    if(!hasIndex){
+      readdirSync(dir)
+        .filter(function (file) {
+          return (file !== 'associations.js') && (file !== 'associations')
+        })
+        .forEach((file) => {
+          const fn = require(`${dir}/${file}`)
+          fn && typeof fn === 'function' && (fn(db, DataTypes))
+        })
+
+      try{
+        const Associations= require(`${dir}/associations`)
+        Associations && (Associations(db.models))
+      }catch(e){
+      }
+
+      const { models } = db
+
+      for (const idx in models) {
+        const obj = models[idx]
+        if (obj.associate) obj.associate(models)
+      }
+    }
 
     db.sync().then(() => this.emit('ready'))
   }

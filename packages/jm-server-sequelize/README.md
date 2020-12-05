@@ -28,6 +28,20 @@ module.exports = {
 
 Please put models under `model` dir by default.
 
+服务会自动遍历 model 文件夹下所有文件，逐一加载所有模型。
+
+为了保持灵活性，从 1.0.5 开始，如果 model 文件夹中存在 index.js 或者 index/index.js 所有工作由 require('/index') 完成
+
+```javascript
+// index.js 例子
+module.exports = function (sequelize, DataTypes) {
+  require('./spu')(sequelize, DataTypes)
+  // ...
+  return sequelize.models
+}
+
+```
+
 ## Associate
 
 ### Model.associate()
