@@ -3,12 +3,12 @@ import sequelize = require('./sequelize');
 const { readdirSync } = fs
 const { Service } = require('jm-server')
 export = class extends Service {
-  constructor (opts: { dir?: string, app?:any } = {}) {
+  constructor (opts: { dir?: string, app?:any, sync?:any } = {}) {
     super(opts)
     const db = sequelize(opts)
     this.sequelize = db
     const {DataTypes} = db.Sequelize
-    const { dir = `${process.cwd()}/model`, app = {} } = opts
+    const { dir = `${process.cwd()}/model`, app = {}, sync } = opts
     Object.assign(db, { app })
 
     // 如果存在 index.js 或者 index/index.js 所有工作由 require('/index') 完成
@@ -44,7 +44,7 @@ export = class extends Service {
       }
     }
 
-    db.sync().then(() => this.emit('ready'))
+    db.sync(sync).then(() => this.emit('ready'))
   }
 
   router (opts: any) {

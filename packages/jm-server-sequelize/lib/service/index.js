@@ -9,7 +9,7 @@ module.exports = class extends Service {
     const db = sequelize(opts)
     this.sequelize = db
     const { DataTypes } = db.Sequelize
-    const { dir = `${process.cwd()}/model`, app = {} } = opts
+    const { dir = `${process.cwd()}/model`, app = {}, sync } = opts
     Object.assign(db, { app })
     // 如果存在 index.js 或者 index/index.js 所有工作由 require('/index') 完成
     let hasIndex = false
@@ -39,7 +39,7 @@ module.exports = class extends Service {
         if (obj.associate) { obj.associate(models) }
       }
     }
-    db.sync().then(() => this.emit('ready'))
+    db.sync(sync).then(() => this.emit('ready'))
   }
 
   router (opts) {
