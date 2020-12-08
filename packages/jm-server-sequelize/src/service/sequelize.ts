@@ -1,4 +1,5 @@
 import sequelize = require('sequelize');
+const _ = require('lodash')
 const cls = require('cls-hooked')
 const namespace = cls.createNamespace('default-namespace')
 sequelize.Sequelize.useCLS(namespace)
@@ -19,7 +20,7 @@ export = (opts: { [key: string]: any } = {}): sequelize.Sequelize => {
     }
   }
 
-  opts = { ...defaultOptions, ...options }
+  opts = _.merge(defaultOptions, options)
 
   if (!debug) {
     opts.logging = false
