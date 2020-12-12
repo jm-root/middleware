@@ -2,6 +2,7 @@ const { splitAndTrim } = require('jm-utils')
 const { Op } = require('sequelize')
 
 function parserSorter (s) {
+  if (!s || typeof s !== 'string') return s
   let v = splitAndTrim(s) || s
   v = v.filter(item => !!item)
   v = v.map(item => splitAndTrim(item, ' '))
